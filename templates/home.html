@@ -1,4 +1,15 @@
-<h1>Sākumlapa</h1>
-<h2>Informācija par manu projektu...</h2>
-<a href="/login">Login</a>
-<a href="/register">Reģistrēties</a>
+<h2>Sveiks, {{ user }}</h2>
+
+<form method="POST" action="/add">
+  <input name="recipe" placeholder="Jauna recepte">
+  <button type="submit">Pievienot</button>
+</form>
+
+<ul>
+  {% for r in recipes %}
+    <li>{{ r }}</li>
+  {% endfor %}
+</ul>
+
+<br>
+<a href="/logout">Iziet no sistēmas</a>
