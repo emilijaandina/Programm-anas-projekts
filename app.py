@@ -23,13 +23,16 @@ def init_db():
     )
     """)
 
-    cursor.execute("""
-    CREATE TABLE IF NOT EXISTS recipes (
+    cursor.execute(""" CREATE TABLE IF NOT EXISTS recipes ( 
         id INTEGER PRIMARY KEY AUTOINCREMENT,
-        text TEXT,
+        title TEXT,
+        ingredients TEXT,
+        steps TEXT,
+        time INTEGER,
         user_id INTEGER
     )
     """)
+    
 
     conn.commit()
     conn.close()
@@ -46,15 +49,13 @@ def home():
     cursor = conn.cursor()
 
     cursor.execute(
-        "SELECT text FROM recipes WHERE user_id = ?",
-        (session["user_id"],)
-    )
+        "SELECT * FROM recipes WHERE user_id = ?",
+        (session["user_id"],))
     recipes = cursor.fetchall()
 
     conn.close()
 
-    return render_template("home.html", recipes=recipes)
-
+    return render_template("home.html", recipes=recipes, user=session.get("username"))
 # REGISTER
 @app.route("/register", methods=["GET", "POST"])
 def register():
@@ -100,6 +101,7 @@ def login():
 
         if user:
             session["user_id"] = user["id"]
+            session["username"] = username
             return redirect("/")
         else:
             return "Nepareizs login"
@@ -110,15 +112,15 @@ def login():
 @app.route("/add", methods=["POST"])
 def add():
     if "user_id" in session:
-        text = request.form["recipe"]
+        title = request.form["title"]
+        ingredients = request.form["ingredients"]
+        steps = request.form["steps"]
+        time = request.form["time"]
 
         conn = get_db()
         cursor = conn.cursor()
 
-        cursor.execute(
-            "INSERT INTO recipes (text, user_id) VALUES (?, ?)",
-            (text, session["user_id"])
-        )
+        cursor.execute( "INSERT INTO recipes (title, ingredients, steps, time, user_id) VALUES (?, ?, ?, ?, ?)",(title, ingredients, steps, time, session["user_id"]) )
 
         conn.commit()
         conn.close()

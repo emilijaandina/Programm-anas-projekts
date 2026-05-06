@@ -1,13 +1,16 @@
-<h2>Sveiks, {{ user }}</h2>
+<h2>Sveiki, {{ user }}</h2>
 
 <form method="POST" action="/add">
-  <input name="recipe" placeholder="Jauna recepte">
+  <input name="title" placeholder="Nosaukums">
+  <input name="ingredients" placeholder="Sastāvdaļas">
+  <input name="steps" placeholder="Soļi">
+  <input name="time" placeholder="Laiks (min)">
   <button type="submit">Pievienot</button>
 </form>
 
 <ul>
   {% for r in recipes %}
-    <li>{{ r }}</li>
+    <li><strong>{{ r["title"] }}</strong>-{{ r['time'] }} min<br><i>Sastāvdaļas: {{ r['ingredients'] }}</i></br><i>Soļi: {{ r['steps'] }}</i></li>
   {% endfor %}
 </ul>
 
