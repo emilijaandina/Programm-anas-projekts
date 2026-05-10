@@ -1,9 +1,10 @@
-<h2>Login</h2>
-
-<form method="POST">
-  <input name="username" placeholder="Username">
-  <input name="password" type="password" placeholder="Password">
-  <button type="submit">Login</button>
-</form>
-
-<a href="/register">Registrēties</a>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<h1 class="main-title">Recepšu Grāmata</h1>
+<p class="site-description"> Sveicieni recepšu grāmatā! Šeit tu vari glabāt savas mīļākās receptes, plānot maltītes un nekad neaizmirst svarīgākos pagatavošanas soļus. </p>
+<div class="form-container">
+  <h2>Login</h2> <form method="POST">
+    <input type="text" name="username" placeholder="Username" class="my-input">
+    <input type="password" name="password" placeholder="Password" class="my-input">
+    <button type="submit" class="submit-btn">Ienākt</button> </form>
+    <a href="/register">Reģistrēties</a>
+</div>

@@ -1,18 +1,27 @@
-<h2>Sveiki, {{ user }}</h2>
-
-<form method="POST" action="/add">
-  <input name="title" placeholder="Nosaukums">
-  <input name="ingredients" placeholder="Sastāvdaļas">
-  <input name="steps" placeholder="Soļi">
-  <input name="time" placeholder="Laiks (min)">
-  <button type="submit">Pievienot</button>
-</form>
-
-<ul>
-  {% for r in recipes %}
-    <li><strong>{{ r["title"] }}</strong>-{{ r['time'] }} min<br><i>Sastāvdaļas: {{ r['ingredients'] }}</i></br><i>Soļi: {{ r['steps'] }}</i></li>
-  {% endfor %}
-</ul>
-
-<br>
-<a href="/logout">Iziet no sistēmas</a>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<div class="home-wrapper"> 
+    <h1 class="main-title">Mana Recepšu Grāmata</h1>
+    <h2>Sveiki, {{ user }}!</h2>
+    <div class="add-recipe-section">
+        <form method="POST" action="/add">
+            <input name="title" placeholder="Receptes nosaukums" class="my-input">
+            <input name="ingredients" placeholder="Sastāvdaļas" class="my-input">
+            <input name="steps" placeholder="Pagatavošana" class="my-input">
+            <input name="time" placeholder="Laiks (min)" class="my-input">
+            <button type="submit" class="submit-btn">Pievienot recepti</button>
+        </form>
+    </div>
+    <div class="recipes-container">
+        <h3>Tavas receptes:</h3>
+        {% for r in recipes %}
+        <div class="recipe-card">
+            <h4>{{ r["title"] }}</h4>
+            <p> {{ r['time'] }} min</p>
+            <p><strong>Sastāvdaļas:</strong> {{ r['ingredients'] }}</p>
+            <p><strong>Soļi:</strong> {{ r['steps'] }}</p> </div>
+        </div>
+        {% endfor %}
+    </div>
+    <br>
+    <a href="/logout" class="logout-link">Iziet no sistēmas</a>
+</div>
